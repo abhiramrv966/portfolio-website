@@ -1,0 +1,1208 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Abhiram R Vishwakarma</title>
+<meta name="description" content="Abhiram R Vishwakarma — co-founder of Aušra and AI engineer in Bengaluru, building agentic AI, retrieval and model evaluation for regulated life-sciences work.">
+<meta name="theme-color" content="#08080a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%2308080a'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='24' fill='%23ff3b1d'%3EAV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+  // Flags + adaptive grid (runs before first paint)
+  (function () {
+    var d = document.documentElement;
+    d.classList.add("js");
+    if (!matchMedia("(prefers-reduced-motion: reduce)").matches) d.classList.add("motion");
+    var FONT_BASE = 16, BASE_W = 1920, COEF = 0.6666;
+    function applyAdaptiveGrid() {
+      var w = window.innerWidth;
+      var reduction = ((BASE_W - w) / BASE_W) * 100 * COEF;
+      var size = FONT_BASE - (FONT_BASE * reduction) / 100;
+      if (size > FONT_BASE) d.style.fontSize = size + "px";
+      else d.style.removeProperty("font-size");
+    }
+    applyAdaptiveGrid();
+    addEventListener("resize", applyAdaptiveGrid);
+  })();
+</script>
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --background: #08080a;
+    --foreground: #f3f1ea;
+    --surface: #111114;
+    --surface-2: #17171b;
+    --muted: #807f78;
+    --line: rgba(243, 241, 234, 0.1);
+    --line-strong: rgba(243, 241, 234, 0.22);
+    --accent: #ff3b1d;
+    --accent-2: #ff6a3d;
+    --gutter: 2.5rem;
+    --section: 9rem;
+    --font-display: "Anton", sans-serif;
+    --font-sans: "Onest", sans-serif;
+    --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
+    --ease-wipe: cubic-bezier(0.22, 1, 0.36, 1);
+    /* width of "VISHWAKARMA" in em (Anton, split letters, -0.01em tracking) */
+    --name-k: 5.45;
+  }
+
+  /* ---------- Adaptive rem grid ---------- */
+  html { font-size: 16px; background: #08080a; }
+  @media (max-width: 1920px) { html { font-size: 0.833333vw; } }
+  @media (max-width: 1440px) { html { font-size: 1.111111vw; } }
+  @media (max-width: 1024px) { html { font-size: 1.5625vw; } }
+  @media (max-width: 640px) {
+    html { font-size: 4.444444vw; }
+    :root { --gutter: 16px; }
+  }
+
+  /* ---------- Reset ---------- */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  img, video { display: block; max-width: 100%; }
+  ul, ol { list-style: none; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; -webkit-appearance: none; appearance: none; text-align: inherit; }
+  h1, h2, h3, h4, p, blockquote, dl, dd, dt, figure { font-size: inherit; font-weight: inherit; }
+  [hidden] { display: none !important; }
+
+  body {
+    background: #08080a;
+    color: #f3f1ea;
+    font-family: var(--font-sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection { background: #ff3b1d; color: #08080a; }
+  :focus-visible { outline: 1px solid var(--accent); outline-offset: 4px; }
+
+  /* Lenis */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped, html.is-locked, html.is-locked body { overflow: hidden; }
+
+  main { position: relative; width: 100%; overflow-x: hidden; }
+
+  /* ---------- Shared type ---------- */
+  .eyebrow {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.8125rem; line-height: 1.2; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted);
+  }
+  .eyebrow::before {
+    content: ""; flex-shrink: 0; width: 0.5rem; height: 0.5rem;
+    border-radius: 9999px; background: var(--accent);
+  }
+  .display {
+    font-family: var(--font-display); font-weight: 400;
+    text-transform: uppercase; letter-spacing: -0.01em;
+  }
+  .label {
+    font-size: 0.8125rem; line-height: 1.2;
+    text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted);
+  }
+  .section { padding: var(--section) var(--gutter); }
+
+  /* ---------- Reveal primitives ---------- */
+  .motion .reveal {
+    opacity: 0;
+    transform: translateY(var(--y, 24px));
+    transition:
+      opacity var(--dur, 560ms) var(--ease-expo) var(--d, 0ms),
+      transform var(--dur, 560ms) var(--ease-expo) var(--d, 0ms);
+  }
+  .motion .reveal.in-view { opacity: 1; transform: none; }
+
+  .motion [data-reveal="lines"]:not(.in-view):not(.is-split) { visibility: hidden; }
+  .sl { display: block; overflow: hidden; padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  .sl > span {
+    display: block; transform: translateY(110%); opacity: 0;
+    transition:
+      transform 900ms var(--ease-expo) var(--d, 0ms),
+      opacity 900ms var(--ease-expo) var(--d, 0ms);
+  }
+  .in-view .sl > span { transform: none; opacity: 1; }
+
+  /* ---------- Preloader ---------- */
+  .preloader { display: none; }
+  .motion .preloader {
+    position: fixed; inset: 0; z-index: 100;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 0.75rem;
+    padding: var(--gutter);
+    will-change: transform;
+  }
+  .preloader::before { content: ""; position: absolute; inset: 0; z-index: -10; background: var(--background); }
+  @media (min-width: 640px) {
+    .motion .preloader { flex-direction: row; align-items: flex-end; justify-content: space-between; gap: 1rem; }
+  }
+  .preloader__brand { font-size: 1.75rem; line-height: 1; color: var(--foreground); }
+  .preloader__count { font-size: 7.5rem; line-height: 1; font-variant-numeric: tabular-nums; color: var(--foreground); display: flex; }
+  .preloader__digits { display: inline-block; min-width: 1.32em; text-align: right; }
+  .preloader__count .pct { color: var(--accent); }
+  .preloader__label { transition: opacity 300ms ease-out; }
+  .preloader.is-fading .preloader__label { opacity: 0; }
+  .preloader.is-wiping { transform: translateY(-100%); transition: transform 650ms var(--ease-wipe); }
+  .preloader.is-done { pointer-events: none; visibility: hidden; }
+
+  /* ---------- Nav ---------- */
+  .site-header { position: fixed; inset-inline: 0; top: 0; z-index: 50; pointer-events: none; }
+  /* soft backdrop once past the hero, so section text doesn't collide with the nav */
+  .site-header::before {
+    content: ""; position: absolute; inset: 0 0 -2.5rem; pointer-events: none;
+    background: linear-gradient(to bottom, #08080a 45%, rgba(8, 8, 10, 0));
+    opacity: 0; transition: opacity 400ms ease-out;
+  }
+  .site-header.is-scrolled::before { opacity: 1; }
+  .site-nav {
+    position: relative; z-index: 2; pointer-events: auto;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem var(--gutter);
+  }
+  .logo { display: flex; align-items: center; gap: 0.75rem; }
+  .logo__mark {
+    display: grid; place-items: center; width: 2.5rem; height: 2.5rem;
+    border-radius: 9999px; border: 1px solid var(--line-strong);
+    font-weight: 600; letter-spacing: -0.01em; font-size: 0.9375rem;
+  }
+  .logo__name {
+    display: none; font-size: 0.8125rem; line-height: 1.2; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted);
+  }
+  @media (min-width: 640px) { .logo__name { display: inline; } }
+  .nav-links { display: none; gap: 2.5rem; }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+  .nav-link {
+    position: relative; font-size: 0.8125rem; line-height: 1.2; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.18em; color: var(--muted);
+    transition: color 300ms ease-out;
+  }
+  .nav-link::after {
+    content: ""; position: absolute; bottom: -0.25rem; left: 0; height: 1px; width: 0;
+    background: var(--accent); transition: width 300ms var(--ease-expo);
+  }
+  .nav-link:hover, .nav-link:focus-visible { color: var(--foreground); }
+  .nav-link:hover::after, .nav-link:focus-visible::after { width: 100%; }
+
+  .burger {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.375rem;
+    width: 2.5rem; height: 2.5rem;
+  }
+  @media (min-width: 768px) { .burger { display: none; } }
+  .burger span {
+    display: block; height: 0.125rem; width: 1.5rem; background: var(--foreground);
+    transition: transform 420ms var(--ease-expo), opacity 300ms ease-out;
+  }
+  .burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(0.5rem) rotate(45deg); }
+  .burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-0.5rem) rotate(-45deg); }
+
+  .menu {
+    position: fixed; inset: 0; z-index: 1; pointer-events: auto;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-inline: var(--gutter); background: var(--background);
+    opacity: 0; visibility: hidden;
+    transition: opacity 450ms ease-out, visibility 0s linear 450ms;
+  }
+  .menu.is-open { opacity: 1; visibility: visible; transition: opacity 450ms ease-out, visibility 0s; }
+  @media (min-width: 768px) { .menu { display: none; } }
+  .menu ul { display: flex; flex-direction: column; gap: 1rem; }
+  .menu a { display: block; font-size: 3.25rem; line-height: 1; }
+  .menu li {
+    opacity: 0; transform: translateY(48px);
+    transition: opacity 420ms ease-out, transform 420ms var(--ease-expo);
+  }
+  .menu.is-open li { opacity: 1; transform: none; transition-delay: calc(120ms + var(--i) * 60ms); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative; display: flex; flex-direction: column;
+    min-height: 100vh; min-height: 100svh; overflow: hidden;
+    container-type: inline-size;
+    /* name size: widest line fitted between the gutters */
+    --name-fs: min(28rem, calc((100cqw - 2 * var(--gutter)) / var(--name-k)));
+  }
+  .hero__top {
+    position: relative; z-index: 30;
+    display: flex; flex-direction: column; gap: 2rem;
+    padding: 7rem var(--gutter) 0;
+  }
+  @media (min-width: 640px) {
+    .hero__top { flex-direction: row; align-items: flex-start; justify-content: space-between; padding-top: 8rem; }
+  }
+  .hero__roles { font-size: 1.75rem; line-height: 1.05; color: var(--foreground); }
+  @media (min-width: 640px) { .hero__roles { font-size: 3.25rem; } }
+  .hero__roles .line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+  .hero__roles .line > span { display: block; }
+  .motion .hero__roles .line > span {
+    transform: translateY(110%); opacity: 0;
+    transition: transform 760ms var(--ease-expo) var(--d, 0ms), opacity 760ms var(--ease-expo) var(--d, 0ms);
+  }
+  .motion .hero.is-roles .hero__roles .line > span { transform: none; opacity: 1; }
+
+  .hero__desc { max-width: 26rem; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); }
+  @media (min-width: 640px) { .hero__desc { text-align: right; } }
+  .motion .hero__desc {
+    opacity: 0; transform: translateY(16px);
+    transition: opacity 520ms var(--ease-expo), transform 520ms var(--ease-expo);
+  }
+  .motion .hero.is-desc .hero__desc { opacity: 1; transform: none; }
+
+  .hero__portrait {
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 20;
+    aspect-ratio: 1210 / 1492; pointer-events: none;
+    width: min(92vw, 56vh * 0.811);
+    width: min(92vw, 56svh * 0.811);
+  }
+  @media (min-width: 640px) { .hero__portrait { width: min(60vw, 82vh * 0.811); } }
+  @media (min-width: 1024px) { .hero__portrait { width: min(42vw, 82vh * 0.811); } }
+  .hero__portrait .liquid { width: 100%; height: 100%; pointer-events: auto; }
+
+  .hero__base {
+    position: absolute; inset-inline: 0; bottom: 0; z-index: 20; height: min(26vh, var(--name-fs) * 0.9); pointer-events: none;
+    background: linear-gradient(to bottom, transparent, #08080a);
+  }
+
+  .hero__name {
+    position: absolute; inset-inline: 0; bottom: 0; z-index: 10;
+    transform: translateY(6%);
+    display: flex; flex-direction: column; align-items: center;
+    line-height: 0.78; color: var(--accent);
+    font-size: var(--name-fs);
+  }
+  .hero__name .nl { display: block; white-space: nowrap; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
+  .hero__name .ch { display: inline-block; }
+  .motion .hero__name .ch {
+    transform: translateY(100%); opacity: 0;
+    transition: transform 900ms var(--ease-expo) var(--d, 0ms), opacity 900ms var(--ease-expo) var(--d, 0ms);
+  }
+  .motion .hero.is-name .hero__name .ch { transform: none; opacity: 1; }
+
+  .hero__cue {
+    position: absolute; bottom: 2rem; left: var(--gutter); z-index: 30;
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.8125rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted);
+  }
+  .hero__cue::before { content: ""; width: 2.5rem; height: 1px; background: var(--accent); }
+  /* Phones: the portrait joins the flow below the copy so the face stays clear of it,
+     and each name line is fitted to the width and laid over the photo to stay legible */
+  @media (max-width: 639.98px) {
+    .hero__portrait {
+      position: relative; left: auto; bottom: auto; transform: none;
+      align-self: center; flex: 1 1 auto; width: 92vw; aspect-ratio: auto;
+      min-height: 44vh; min-height: 44svh; margin-top: 1.5rem;
+      -webkit-mask-image: linear-gradient(to top, transparent 0, #000 32%);
+      mask-image: linear-gradient(to top, transparent 0, #000 32%);
+    }
+    .hero__portrait .liquid { position: absolute; inset: 0; }
+    .hero__portrait .liquid__media > img { object-fit: contain; }
+    .hero__base { display: none; }
+    .hero__name { transform: translateY(4%); z-index: 25; } /* title sits over the photo on phones */
+    .hero__name .nl:first-child { font-size: calc((100cqw - 2 * var(--gutter)) / 3.42); }
+    .hero__cue { display: none; }
+  }
+  .motion .hero__cue { opacity: 0; transition: opacity 600ms ease-out; }
+  .motion .hero.is-cue .hero__cue { opacity: 1; }
+
+  /* ---------- Marquee ---------- */
+  .marquee { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding-block: 2rem; }
+  .marquee__track { display: flex; width: max-content; flex-wrap: nowrap; }
+  .motion .marquee__track { animation: marquee 22s linear infinite; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  .marquee__item { display: flex; align-items: center; font-size: 3.25rem; line-height: 1; white-space: nowrap; }
+  .marquee__item::after {
+    content: ""; flex-shrink: 0; margin-inline: 2rem; width: 0.625rem; height: 0.625rem;
+    border-radius: 9999px; background: var(--accent);
+  }
+
+  /* ---------- Section headings ---------- */
+  .heading { margin-top: 1.5rem; font-size: 3.25rem; line-height: 0.95; }
+  .heading--1 { line-height: 1; }
+  @media (min-width: 640px) { .heading--lg { font-size: 5rem; } }
+  .section-head { display: flex; flex-direction: column; gap: 1.5rem; }
+  @media (min-width: 640px) { .section-head { flex-direction: row; align-items: flex-end; justify-content: space-between; } }
+  .section-head__aside { font-size: 0.8125rem; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.22em; color: var(--muted); }
+
+  /* ---------- About (story) ---------- */
+  .story { display: grid; grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+  @media (min-width: 1024px) {
+    .story { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); }
+    .story__left { grid-column: span 6; }
+    .story__right { grid-column: span 6; padding-top: 0.5rem; }
+  }
+  .story__heading { max-width: 16ch; }
+  .story__body { margin-top: 2rem; max-width: 46ch; font-size: 1.375rem; line-height: 1.45; color: var(--muted); }
+  .principle {
+    display: grid; grid-template-columns: auto 1fr; column-gap: 1.5rem;
+    border-top: 1px solid var(--line); padding-block: 2rem;
+  }
+  .principle:last-child { border-bottom: 1px solid var(--line); }
+  .principle__num { font-size: 1.75rem; line-height: 1.15; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--accent); }
+  .principle__title { font-size: 1.75rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; }
+  .principle__body { margin-top: 0.75rem; max-width: 44ch; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); }
+
+  /* ---------- LiquidImage ---------- */
+  .liquid { position: relative; overflow: hidden; background: radial-gradient(130% 130% at 30% 15%, var(--surface-2), var(--background)); }
+  .liquid--bare { background: none; }
+  .liquid__svg { position: absolute; width: 0; height: 0; overflow: hidden; }
+  .liquid__media { position: absolute; inset: 0; }
+  .liquid__media > img, .liquid__media > video, .liquid__media > svg {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center bottom;
+  }
+  .liquid__veil, .liquid__glow, .liquid__vignette { position: absolute; inset: 0; pointer-events: none; }
+  .liquid__veil { background: var(--background); mix-blend-mode: color; opacity: 0.88; transition: opacity 380ms ease-out; }
+  .liquid__glow {
+    background: linear-gradient(120deg, transparent 30%, color-mix(in srgb, var(--accent) 35%, transparent) 50%, transparent 70%);
+    opacity: 0; transition: opacity 340ms ease-out;
+  }
+  .liquid__vignette { background: radial-gradient(120% 120% at 50% 120%, color-mix(in srgb, #08080a 70%, transparent), transparent 60%); }
+  .liquid.is-hover .liquid__veil, .liquid.is-color .liquid__veil { opacity: 0; }
+  .liquid.is-hover .liquid__glow { opacity: 1; }
+
+  /* ---------- Work (ventures) ---------- */
+  .work__heading { max-width: 14ch; }
+  .ventures { margin-top: 4rem; display: grid; grid-template-columns: minmax(0, 1fr); column-gap: var(--gutter); row-gap: 4rem; }
+  @media (min-width: 768px) {
+    .ventures { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ventures > li:nth-child(even) { margin-top: 6rem; }
+  }
+  .venture__media { aspect-ratio: 16 / 11; width: 100%; border-radius: 0.125rem; }
+  .venture__row {
+    margin-top: 1.5rem; border-top: 1px solid var(--line); padding-top: 1.25rem;
+    display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 0.75rem 1.5rem;
+  }
+  .venture__main { flex: 1 1 18rem; min-width: 0; }
+  .venture__name { font-size: 1.75rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; transition: color 420ms ease-out; }
+  .venture:hover .venture__name { color: var(--accent); }
+  .venture__blurb { margin-top: 0.5rem; max-width: 42ch; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); }
+  .venture__meta { flex-shrink: 0; margin-left: auto; text-align: right; }
+  .venture__outcome { margin-top: 0.5rem; font-weight: 500; color: var(--accent); }
+  .venture__cat { margin-top: 0.75rem; letter-spacing: 0.22em; }
+
+  /* ---------- Results (impact) ---------- */
+  .stats { margin-top: 4rem; display: grid; grid-template-columns: minmax(0, 1fr); border-top: 1px solid var(--line); }
+  @media (min-width: 640px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .stats { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .stat { display: flex; flex-direction: column; gap: 1rem; border-bottom: 1px solid var(--line); padding-block: 2.5rem; container-type: inline-size; }
+  @media (min-width: 640px) and (max-width: 1023.98px) {
+    .stat:nth-child(even) { border-left: 1px solid var(--line); padding-left: 2rem; }
+  }
+  @media (min-width: 1024px) {
+    .stat { padding-block: 3rem; }
+    .stat:not(:nth-child(4n + 1)) { border-left: 1px solid var(--line); padding-left: 2rem; }
+  }
+  .stat__fig { order: -1; font-size: min(7.5rem, 38cqw); line-height: 1; transition: color 340ms ease-out; white-space: nowrap; }
+  .stat:hover .stat__fig { color: var(--accent); }
+  .stat__label { max-width: 20ch; font-size: 1.0625rem; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
+
+  /* ---------- Experience (voices) ---------- */
+  .xp { margin-top: 4rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 3rem; }
+  @media (min-width: 1024px) {
+    .xp { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); }
+    .xp__list { grid-column: span 5; }
+    .xp__panel { grid-column: span 7; }
+  }
+  .xp-btn {
+    display: flex; align-items: baseline; gap: 1.25rem; width: 100%;
+    border-top: 1px solid var(--line); padding-block: 1.75rem; text-align: left;
+  }
+  .xp__list li:last-child .xp-btn { border-bottom: 1px solid var(--line); }
+  .xp-btn__idx { font-size: 0.8125rem; line-height: 1.2; font-variant-numeric: tabular-nums; letter-spacing: 0.18em; color: var(--muted); transition: color 300ms ease-out; }
+  .xp-btn__body { flex: 1; min-width: 0; }
+  .xp-btn__name { display: block; font-size: 1.75rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; color: var(--muted); transition: color 300ms ease-out; }
+  .xp-btn__role { display: block; margin-top: 0.25rem; }
+  .xp-btn__rule { align-self: center; flex-shrink: 0; height: 1px; width: 0; background: var(--accent); transition: width 420ms var(--ease-expo); }
+  .xp-btn.is-active .xp-btn__idx { color: var(--accent); }
+  .xp-btn.is-active .xp-btn__name { color: var(--foreground); }
+  .xp-btn.is-active .xp-btn__rule { width: 2.5rem; }
+
+  .xp__panel { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  @media (min-width: 640px) { .xp__panel { grid-template-columns: minmax(0, 1fr) min(16rem, 34%); align-items: start; gap: 2.5rem; } }
+  .xp-quote { order: 2; }
+  @media (min-width: 640px) { .xp-quote { order: 1; } }
+  .xp-text { max-width: 32ch; font-size: 1.75rem; line-height: 1.3; font-weight: 500; letter-spacing: -0.01em; color: var(--foreground); }
+  .xp-text .qw { display: inline-block; }
+  .motion .xp-text .qw {
+    opacity: 0; transform: translateY(18px);
+    transition: opacity 520ms var(--ease-quart) var(--d, 0ms), transform 520ms var(--ease-quart) var(--d, 0ms);
+  }
+  .motion .xp-text.play .qw { opacity: 1; transform: none; }
+  .xp-meta { margin-top: 2rem; }
+  .xp-media { order: 1; aspect-ratio: 4 / 5; width: 100%; border-radius: 0.125rem; }
+  @media (max-width: 639.98px) { .xp-media { width: 64%; } }
+  @media (min-width: 640px) { .xp-media { order: 2; } }
+  .motion .xp-media.reveal { transform: scale(1.06); }
+  .motion .xp-media.reveal.in-view { transform: none; }
+
+  /* ---------- Writing ---------- */
+  .section-head__link { transition: color 300ms ease-out; }
+  .section-head__link:hover, .section-head__link:focus-visible { color: var(--foreground); }
+  .section-head__link span { color: var(--accent); }
+  .posts { margin-top: 4rem; }
+  .post-row { border-top: 1px solid var(--line); }
+  .post-row:last-child { border-bottom: 1px solid var(--line); }
+  .post-row__link { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.75rem; padding-block: 2rem; }
+  @media (min-width: 1024px) {
+    .post-row__link { grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gutter); align-items: baseline; }
+    .post-row__date { grid-column: span 3; }
+    .post-row__main { grid-column: span 6; }
+    .post-row__meta { grid-column: span 2; text-align: right; }
+    .post-row__arrow { grid-column: span 1; justify-self: end; }
+  }
+  .post-row__title { display: block; font-size: 1.75rem; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; transition: color 340ms ease-out; }
+  .post-row__summary { display: block; margin-top: 0.5rem; max-width: 56ch; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); }
+  .post-row__arrow { display: none; color: var(--accent); font-size: 1.75rem; line-height: 1; transition: transform 340ms ease-out; }
+  @media (min-width: 1024px) { .post-row__arrow { display: block; } }
+  .post-row__link:hover .post-row__title, .post-row__link:focus-visible .post-row__title { color: var(--accent); }
+  .post-row__link:hover .post-row__arrow { transform: translate(6px, -6px); }
+
+  /* ---------- Contact ---------- */
+  .contact { padding-top: var(--section); padding-inline: var(--gutter); container-type: inline-size; }
+  .contact__heading { max-width: 18ch; font-size: 4.25rem; line-height: 0.95; }
+  @media (min-width: 640px) { .contact__heading { font-size: 7.5rem; } }
+  .contact__lead { margin-top: 2rem; max-width: 44ch; font-size: 1.375rem; line-height: 1.45; color: var(--muted); }
+  .email-wrap { margin-top: 3rem; }
+  .email {
+    display: inline-flex; align-items: baseline; gap: 0.75rem;
+    font-size: min(1.75rem, 100cqw / 13.8); line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; word-break: break-all;
+    transition: transform 340ms ease-out, color 340ms ease-out;
+  }
+  @media (min-width: 640px) { .email { gap: 1rem; font-size: min(5rem, 100cqw / 13.8); line-height: 0.95; } }
+  .email:hover, .email:focus-visible { transform: translateX(14px); color: var(--accent); }
+  .email__arrow { color: var(--accent); }
+
+  .footer-bar {
+    margin-top: var(--section); border-top: 1px solid var(--line); padding-block: 3rem;
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem;
+  }
+  @media (min-width: 1024px) {
+    .footer-bar { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .fb-left { grid-column: span 6; }
+    .fb-mid { grid-column: span 3; }
+    .fb-right { grid-column: span 3; text-align: right; }
+  }
+  .signature { font-size: 3.25rem; line-height: 1; }
+  .fb-tag { margin-top: 1rem; letter-spacing: 0.22em; }
+  .social ul { display: flex; flex-direction: column; gap: 0.5rem; }
+  .social a { display: inline-flex; align-items: center; font-size: 1.0625rem; line-height: 1.6; color: var(--muted); transition: color 300ms ease-out; }
+  .social a::before { content: ""; height: 1px; width: 0; margin-right: 0; background: var(--accent); transition: width 300ms var(--ease-expo), margin-right 300ms var(--ease-expo); }
+  .social a:hover, .social a:focus-visible { color: var(--foreground); }
+  .social a:hover::before, .social a:focus-visible::before { width: 1.5rem; margin-right: 0.75rem; }
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .preloader { display: none !important; }
+    .marquee__track { animation: none !important; }
+    *, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; }
+  }
+</style>
+<script type="importmap">
+{ "imports": { "lenis": "https://cdn.jsdelivr.net/npm/lenis@1.3.19/dist/lenis.mjs" } }
+</script>
+</head>
+<body>
+
+<!-- 1) Preloader -->
+<div class="preloader" aria-hidden="false">
+  <p class="preloader__label preloader__brand display">Abhiram R Vishwakarma</p>
+  <p class="preloader__label preloader__count display" aria-label="Loading"><span class="preloader__digits" data-count>0</span><span class="pct">%</span></p>
+</div>
+
+<!-- 2) Nav -->
+<header class="site-header">
+  <nav class="site-nav" aria-label="Primary">
+    <a class="logo" href="#top" aria-label="Abhiram R Vishwakarma — back to top">
+      <span class="logo__mark" aria-hidden="true">AV</span>
+      <span class="logo__name">Abhiram R Vishwakarma</span>
+    </a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="#about">About</a></li>
+      <li><a class="nav-link" href="#work">Work</a></li>
+      <li><a class="nav-link" href="#results">Results</a></li>
+      <li><a class="nav-link" href="#experience">Experience</a></li>
+      <li data-writing-link hidden><a class="nav-link" href="#writing">Writing</a></li>
+      <li><a class="nav-link" href="#contact">Contact</a></li>
+    </ul>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="menu" id="mobile-menu" inert>
+    <ul>
+      <li style="--i:0"><a class="display" href="#about">About</a></li>
+      <li style="--i:1"><a class="display" href="#work">Work</a></li>
+      <li style="--i:2"><a class="display" href="#results">Results</a></li>
+      <li style="--i:3"><a class="display" href="#experience">Experience</a></li>
+      <li style="--i:4" data-writing-link hidden><a class="display" href="#writing">Writing</a></li>
+      <li style="--i:5"><a class="display" href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- 3) Hero -->
+  <section class="hero" id="top">
+    <div class="hero__top">
+      <p class="hero__roles display">
+        <span class="line"><span>Co-founder</span></span>
+        <span class="line"><span>AI Engineer</span></span>
+        <span class="line"><span>Researcher</span></span>
+        <span class="line"><span>Speaker</span></span>
+      </p>
+      <p class="hero__desc">I build agentic AI for regulated life-sciences work — retrieval, orchestration and the evaluation that keeps output audit-ready. Co-founder of Aušra, Bengaluru.</p>
+    </div>
+
+    <div class="hero__portrait">
+      <figure class="liquid liquid--bare" role="img" aria-label="Portrait of Abhiram R Vishwakarma" data-liquid="14">
+        <div class="liquid__media">
+          <img src="portrait.webp" alt="" width="1210" height="1492" fetchpriority="high" decoding="async">
+        </div>
+      </figure>
+    </div>
+
+    <div class="hero__base" aria-hidden="true"></div>
+
+    <h1 class="hero__name display" aria-label="Abhiram R Vishwakarma">
+      <span class="nl" aria-hidden="true">Abhiram</span>
+      <span class="nl" aria-hidden="true">Vishwakarma</span>
+    </h1>
+
+    <div class="hero__cue" aria-hidden="true">Scroll to enter</div>
+  </section>
+
+  <!-- 4) Marquee -->
+  <section class="marquee" aria-label="Areas of work">
+    <div class="marquee__track">
+      <span class="marquee__item display">Agentic Systems</span>
+      <span class="marquee__item display">Hybrid Retrieval</span>
+      <span class="marquee__item display">Model Evaluation</span>
+      <span class="marquee__item display">Clinical ML</span>
+      <span class="marquee__item display">Human In The Loop</span>
+      <span class="marquee__item display" aria-hidden="true">Agentic Systems</span>
+      <span class="marquee__item display" aria-hidden="true">Hybrid Retrieval</span>
+      <span class="marquee__item display" aria-hidden="true">Model Evaluation</span>
+      <span class="marquee__item display" aria-hidden="true">Clinical ML</span>
+      <span class="marquee__item display" aria-hidden="true">Human In The Loop</span>
+    </div>
+  </section>
+
+  <!-- 5) About -->
+  <section class="section" id="about">
+    <div class="story">
+      <div class="story__left">
+        <p class="eyebrow">About</p>
+        <h2 class="heading heading--lg story__heading display" data-reveal="lines">Held-out data decides.</h2>
+        <p class="story__body reveal" data-reveal style="--dur:520ms">I study Electronics and Communication Engineering at MVJ College of Engineering, Bengaluru (GPA 9.00/10), and co-founded Aušra, where I build agentic AI that automates document-heavy regulatory and safety workflows in life sciences. My research is in clinical machine learning: neonatal sepsis detection, multi-omic cancer classification, and a systematic review and meta-analysis of AI for early sepsis detection, under review at the Journal of Biomedical Informatics.</p>
+      </div>
+      <ul class="story__right">
+        <li class="principle reveal" data-reveal style="--d:0ms;--y:32px">
+          <span class="principle__num">01</span>
+          <div>
+            <h3 class="principle__title">Select on held-out data</h3>
+            <p class="principle__body">Final models are chosen on validated performance, not training-set fit — cross-validation, golden datasets, and CI regression gates that catch drift before release.</p>
+          </div>
+        </li>
+        <li class="principle reveal" data-reveal style="--d:90ms;--y:32px">
+          <span class="principle__num">02</span>
+          <div>
+            <h3 class="principle__title">Keep a human in the loop</h3>
+            <p class="principle__body">Regulated work needs audit-ready output. Review layers and human adjudication are designed into the system, not added after it ships.</p>
+          </div>
+        </li>
+        <li class="principle reveal" data-reveal style="--d:180ms;--y:32px">
+          <span class="principle__num">03</span>
+          <div>
+            <h3 class="principle__title">Make predictions explainable</h3>
+            <p class="principle__body">SHAP attributions and calibrated uncertainty estimates, so a clinician can see what drove a prediction and how far to trust it.</p>
+          </div>
+        </li>
+        <li class="principle reveal" data-reveal style="--d:270ms;--y:32px">
+          <span class="principle__num">04</span>
+          <div>
+            <h3 class="principle__title">Build with the people who use it</h3>
+            <p class="principle__body">Requirements and pilot feedback come straight from users — from hospital-integration pipelines to the front desk of a local dental clinic.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6) Work -->
+  <section class="section" id="work">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Selected Work</p>
+        <h2 class="heading heading--lg work__heading display" data-reveal="lines">Built and measured.</h2>
+      </div>
+      <p class="section-head__aside">04 / Projects</p>
+    </div>
+
+    <ul class="ventures">
+      <li class="reveal" data-reveal style="--y:60px;--dur:620ms">
+        <article class="venture" data-liquid-host>
+          <figure class="liquid venture__media" role="img" aria-label="Illustration: documents routed through agents to a human review step" data-liquid="28">
+            <div class="liquid__media" data-art="ausra"></div>
+            <div class="liquid__veil"></div><div class="liquid__glow"></div><div class="liquid__vignette"></div>
+          </figure>
+          <div class="venture__row">
+            <div class="venture__main">
+              <h3 class="venture__name">Aušra</h3>
+              <p class="venture__blurb">Multi-agent framework that automates document-heavy regulatory and safety workflows, with hybrid retrieval and a human-in-the-loop review layer for audit-ready output.</p>
+            </div>
+            <div class="venture__meta">
+              <p class="label">2025 — Present</p>
+              <p class="label venture__outcome">Top 30 nationally</p>
+            </div>
+          </div>
+          <p class="label venture__cat">Co-founder · LangGraph · Qdrant · MCP</p>
+        </article>
+      </li>
+      <li class="reveal" data-reveal style="--y:60px;--dur:620ms;--d:120ms">
+        <article class="venture" data-liquid-host>
+          <figure class="liquid venture__media" role="img" aria-label="Illustration: six data modalities converging on one prediction" data-liquid="28">
+            <div class="liquid__media" data-art="pathcup"></div>
+            <div class="liquid__veil"></div><div class="liquid__glow"></div><div class="liquid__vignette"></div>
+          </figure>
+          <div class="venture__row">
+            <div class="venture__main">
+              <h3 class="venture__name">PathCUP</h3>
+              <p class="venture__blurb">Cancer of Unknown Primary prediction from six fused TCGA modalities through pathway transformer encoders with cross-modal attention and evidential uncertainty.</p>
+            </div>
+            <div class="venture__meta">
+              <p class="label">2025</p>
+              <p class="label venture__outcome">91.2% acc · 0.87 AUC</p>
+            </div>
+          </div>
+          <p class="label venture__cat">PyTorch · LoRA/QLoRA · Airflow</p>
+        </article>
+      </li>
+      <li class="reveal" data-reveal style="--y:60px;--dur:620ms">
+        <article class="venture" data-liquid-host>
+          <figure class="liquid venture__media" role="img" aria-label="Illustration: ROC curve" data-liquid="28">
+            <div class="liquid__media" data-art="neosense"></div>
+            <div class="liquid__veil"></div><div class="liquid__glow"></div><div class="liquid__vignette"></div>
+          </figure>
+          <div class="venture__row">
+            <div class="venture__main">
+              <h3 class="venture__name">NeoSense</h3>
+              <p class="venture__blurb">Early neonatal sepsis detection with a stacked ensemble over a class-imbalance-corrected pipeline, made auditable with SHAP attributions. 2nd place, TechXcel.</p>
+            </div>
+            <div class="venture__meta">
+              <p class="label">2024</p>
+              <p class="label venture__outcome">F1 0.97 · AUC 0.98</p>
+            </div>
+          </div>
+          <p class="label venture__cat">Scikit-learn · TensorFlow · SHAP</p>
+        </article>
+      </li>
+      <li class="reveal" data-reveal style="--y:60px;--dur:620ms;--d:120ms">
+        <article class="venture" data-liquid-host>
+          <figure class="liquid venture__media" role="img" aria-label="Illustration: appointment schedule across four dental chairs" data-liquid="28">
+            <div class="liquid__media" data-art="clinic"></div>
+            <div class="liquid__veil"></div><div class="liquid__glow"></div><div class="liquid__vignette"></div>
+          </figure>
+          <div class="venture__row">
+            <div class="venture__main">
+              <h3 class="venture__name">Clinic Practice Manager</h3>
+              <p class="venture__blurb">Appointments, patient CRM and billing for a local dental clinic — chair availability, recurring slots and role-based access. Built as sole engineer.</p>
+            </div>
+            <div class="venture__meta">
+              <p class="label">2026 — Present</p>
+              <p class="label venture__outcome">Live pilot</p>
+            </div>
+          </div>
+          <p class="label venture__cat">Next.js 15 · Supabase · Drizzle</p>
+        </article>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 7) Results -->
+  <section class="section" id="results">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">By The Numbers</p>
+        <h2 class="heading heading--1 display" data-reveal="lines">Results to date.</h2>
+      </div>
+    </div>
+    <dl class="stats">
+      <div class="stat reveal" data-reveal style="--y:40px;--d:0ms">
+        <dt class="stat__label">Of 9,000+ teams at India Innovates 2026</dt>
+        <dd class="stat__fig display">Top 30</dd>
+      </div>
+      <div class="stat reveal" data-reveal style="--y:40px;--d:110ms">
+        <dt class="stat__label">Held-out accuracy, cancer of unknown primary</dt>
+        <dd class="stat__fig display">91.2%</dd>
+      </div>
+      <div class="stat reveal" data-reveal style="--y:40px;--d:220ms">
+        <dt class="stat__label">ROC-AUC, early neonatal sepsis detection</dt>
+        <dd class="stat__fig display">0.98</dd>
+      </div>
+      <div class="stat reveal" data-reveal style="--y:40px;--d:330ms">
+        <dt class="stat__label">GPA out of 10, B.E. Electronics &amp; Communication</dt>
+        <dd class="stat__fig display">9.00</dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- 8) Experience -->
+  <section class="section" id="experience">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Experience</p>
+        <h2 class="heading heading--1 display" data-reveal="lines">Where I’ve worked.</h2>
+      </div>
+    </div>
+    <div class="xp">
+      <ul class="xp__list">
+        <li><button class="xp-btn is-active" type="button" aria-pressed="true" aria-controls="xp-panel"><span class="xp-btn__idx">01</span><span class="xp-btn__body"><span class="xp-btn__name">Aušra</span><span class="xp-btn__role label">Co-founder · 2025 — Present</span></span><span class="xp-btn__rule"></span></button></li>
+        <li><button class="xp-btn" type="button" aria-pressed="false" aria-controls="xp-panel"><span class="xp-btn__idx">02</span><span class="xp-btn__body"><span class="xp-btn__name">Technologics Global</span><span class="xp-btn__role label">AI/ML Intern · Feb — May 2026</span></span><span class="xp-btn__rule"></span></button></li>
+        <li><button class="xp-btn" type="button" aria-pressed="false" aria-controls="xp-panel"><span class="xp-btn__idx">03</span><span class="xp-btn__body"><span class="xp-btn__name">TEDxMVJCE</span><span class="xp-btn__role label">Content Head · 2024 — 2025</span></span><span class="xp-btn__rule"></span></button></li>
+        <li><button class="xp-btn" type="button" aria-pressed="false" aria-controls="xp-panel"><span class="xp-btn__idx">04</span><span class="xp-btn__body"><span class="xp-btn__name">Toastmasters MVJCE</span><span class="xp-btn__role label">VP Education · 2023</span></span><span class="xp-btn__rule"></span></button></li>
+      </ul>
+      <div class="xp__panel" id="xp-panel">
+        <div class="xp-quote">
+          <p class="xp-text" data-reveal="quote" data-xp-text>Architected the inference engine and multi-agent orchestration for an agentic AI framework that automates regulatory and safety documentation in life sciences — with hybrid retrieval, an evaluation harness and a human-in-the-loop review layer.</p>
+          <p class="xp-meta label" data-xp-meta>Co-founder — Aušra · Bengaluru</p>
+        </div>
+        <figure class="liquid xp-media reveal" role="img" aria-label="Aušra, 2025 to present" data-reveal data-liquid="22" style="--dur:640ms">
+          <div class="liquid__media" data-xp-media></div>
+          <div class="liquid__veil"></div><div class="liquid__glow"></div><div class="liquid__vignette"></div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Writing (latest posts from ./posts; stays hidden until there is at least one) -->
+  <section class="section" id="writing" hidden>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Writing</p>
+        <h2 class="heading heading--1 display" data-reveal="lines">Notes and essays.</h2>
+      </div>
+      <a class="section-head__aside section-head__link" href="blog.html">All posts <span aria-hidden="true">↗</span></a>
+    </div>
+    <ul class="posts" data-posts></ul>
+  </section>
+
+  <!-- 9) Contact -->
+  <footer class="contact" id="contact">
+    <p class="eyebrow">Get In Touch</p>
+    <h2 class="heading contact__heading display" data-reveal="lines">Have a problem worth modelling?</h2>
+    <p class="contact__lead reveal" data-reveal style="--dur:520ms">Research collaborations, engineering work, or questions about agentic systems in life sciences — email reaches me fastest.</p>
+    <div class="email-wrap">
+      <a class="email" href="mailto:abhiram.rv966@gmail.com">abhiram.rv966@gmail.com <span class="email__arrow" aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="footer-bar">
+      <div class="fb-left">
+        <p class="signature display">Abhiram R Vishwakarma</p>
+        <p class="label fb-tag">Designed &amp; built in Bengaluru.</p>
+      </div>
+      <nav class="fb-mid social" aria-label="Social">
+        <ul>
+          <li><a href="https://linkedin.com/in/abhiram-r-vishwakarma-a8a773252" target="_blank" rel="noreferrer noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/abhiramrv966" target="_blank" rel="noreferrer noopener">GitHub</a></li>
+          <li><a href="https://ausra.in" target="_blank" rel="noreferrer noopener">Aušra</a></li>
+        </ul>
+      </nav>
+      <div class="fb-right">
+        <p class="label">© <span data-year>2026</span> Abhiram R Vishwakarma. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script type="module">
+  const root = document.documentElement;
+  const MOTION = root.classList.contains("motion");
+  const T0 = performance.now();
+  const at = (ms, fn) => setTimeout(fn, Math.max(0, ms - (performance.now() - T0)));
+  const finePointer = matchMedia("(hover: hover) and (pointer: fine) and (min-width: 769px)");
+
+  /* ---------- Lenis smooth scroll ---------- */
+  let lenis = null;
+  let locks = 0;
+  const lock = () => { locks++; root.classList.add("is-locked"); lenis?.stop(); };
+  const unlock = () => { locks = Math.max(0, locks - 1); if (locks) return; root.classList.remove("is-locked"); lenis?.start(); };
+  if (MOTION) {
+    import("lenis").then(({ default: Lenis }) => {
+      lenis = new Lenis({ smoothWheel: true });
+      window.lenis = lenis;
+      if (locks) lenis.stop();
+      const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+    }).catch(() => { /* native scroll fallback */ });
+  }
+
+  /* ---------- Preloader (skipped when arriving from another page of the site, or at an anchor) ---------- */
+  const fromSite = (() => { try { return !!document.referrer && new URL(document.referrer).origin === location.origin; } catch { return false; } })();
+  const atAnchor = (() => { try { return location.hash.length > 1 && !!document.querySelector(location.hash); } catch { return false; } })();
+  const INTRO = MOTION && !fromSite && !atAnchor;
+  const pre = document.querySelector(".preloader");
+  if (INTRO && pre) {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    lock();
+    const out = pre.querySelector("[data-count]");
+    const tick = (t) => {
+      const p = Math.min(1, Math.max(0, (t - T0) / 2000));
+      out.textContent = Math.round(p * 100);
+      if (p < 1) requestAnimationFrame(tick);
+      else {
+        pre.classList.add("is-fading");
+        setTimeout(() => pre.classList.add("is-wiping"), 200);
+      }
+    };
+    requestAnimationFrame(tick);
+    pre.addEventListener("transitionend", (e) => {
+      if (e.target !== pre || e.propertyName !== "transform") return;
+      pre.classList.add("is-done");
+      pre.setAttribute("aria-hidden", "true");
+      unlock();
+    });
+  } else pre?.remove();
+
+  /* ---------- Hero sequencing ---------- */
+  const hero = document.querySelector(".hero");
+  document.querySelectorAll(".hero__name .nl").forEach((line, l) => {
+    const text = line.textContent.trim();
+    line.textContent = "";
+    [...text].forEach((c, i) => {
+      const s = document.createElement("span");
+      s.className = "ch";
+      s.textContent = c;
+      s.style.setProperty("--d", l * 240 + i * 52 + "ms");
+      line.append(s);
+    });
+  });
+  document.querySelectorAll(".hero__roles .line > span").forEach((s, i) => s.style.setProperty("--d", i * 80 + "ms"));
+  const REVEAL_DELAY = INTRO ? 2500 : MOTION ? 150 : 0;
+  at(REVEAL_DELAY, () => hero.classList.add("is-name"));
+  at(REVEAL_DELAY + 200, () => hero.classList.add("is-roles"));
+  at(REVEAL_DELAY + 400, () => hero.classList.add("is-desc"));
+  at(REVEAL_DELAY + 900, () => hero.classList.add("is-cue"));
+
+  /* ---------- Line-by-line heading reveal ---------- */
+  function revealLines(el) {
+    const text = el.textContent.replace(/\s+/g, " ").trim();
+    el.setAttribute("aria-label", text);
+    el.textContent = "";
+    const words = text.split(" ").map((w, i, a) => {
+      const s = document.createElement("span");
+      s.textContent = w;
+      el.append(s);
+      if (i < a.length - 1) el.append(" ");
+      return s;
+    });
+    const lines = [];
+    let top = null;
+    for (const w of words) {
+      if (top === null || w.offsetTop > top + 2) { lines.push([]); top = w.offsetTop; }
+      lines[lines.length - 1].push(w.textContent);
+    }
+    el.textContent = "";
+    lines.forEach((ws, i) => {
+      const outer = document.createElement("span");
+      outer.className = "sl";
+      outer.setAttribute("aria-hidden", "true");
+      const inner = document.createElement("span");
+      inner.textContent = ws.join(" ");
+      inner.style.setProperty("--d", i * 90 + "ms");
+      outer.append(inner);
+      el.append(outer);
+    });
+    el.classList.add("is-split");
+    void el.offsetWidth;
+    requestAnimationFrame(() => el.classList.add("in-view"));
+    // hand back plain text once settled so it re-wraps naturally on resize
+    setTimeout(() => {
+      el.textContent = text;
+      el.removeAttribute("aria-label");
+      el.classList.remove("is-split");
+    }, (lines.length - 1) * 90 + 1000);
+  }
+
+  /* ---------- In-view triggers (once) ---------- */
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      io.unobserve(e.target);
+      const el = e.target;
+      const kind = el.dataset.reveal;
+      if (kind === "lines") { MOTION ? revealLines(el) : el.classList.add("in-view"); }
+      else if (kind === "quote") playQuote();
+      else el.classList.add("in-view");
+    }
+  }, { threshold: 0 });
+  document.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+
+  /* ---------- Spring (tension / friction, mass 1) ---------- */
+  function spring(tension, friction, onUpdate) {
+    let x = 0, v = 0, target = 0, raf = 0, last = 0;
+    const step = (t) => {
+      const dt = Math.min(0.064, (t - last) / 1000 || 0.016);
+      last = t;
+      const n = Math.ceil(dt / 0.004), h = dt / n;
+      for (let i = 0; i < n; i++) { v += (-tension * (x - target) - friction * v) * h; x += v * h; }
+      if (Math.abs(v) < 0.0005 && Math.abs(x - target) < 0.0005) { x = target; v = 0; raf = 0; onUpdate(x); return; }
+      onUpdate(x);
+      raf = requestAnimationFrame(step);
+    };
+    return { set(t) { target = t; if (!raf) { last = performance.now(); raf = requestAnimationFrame(step); } } };
+  }
+
+  /* ---------- Generative illustrations ---------- */
+  const FG = "#f3f1ea", AC = "#ff3b1d", MU = "#807f78", SF = "#111114";
+  const rng = (seed) => () => { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  const txt = (x, y, s, str, o = {}) =>
+    `<text x="${x}" y="${y}" font-size="${s}" font-family="${o.f || "Onest, sans-serif"}" fill="${o.c || MU}" ${o.a ? `text-anchor="${o.a}"` : ""} letter-spacing="${o.ls ?? 0.35}" ${o.w ? `font-weight="${o.w}"` : ""} ${o.extra || ""}>${str}</text>`;
+  const svgWrap = (w, h, id, body) =>
+    `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="xMidYMid slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="${id}" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="${FG}" stroke-opacity=".05" stroke-width=".25"/></pattern></defs>
+      <rect width="${w}" height="${h}" fill="${SF}"/><rect width="${w}" height="${h}" fill="url(#${id})"/>${body}</svg>`;
+
+  const ART = {
+    ausra() {
+      const docs = [22, 42, 62, 82], agents = [33, 55, 77], R = { x: 132, y: 55 };
+      let s = `<g fill="none" stroke="${FG}" stroke-opacity=".18" stroke-width=".3">`;
+      docs.forEach((dy) => agents.forEach((ay) => { s += `<path d="M36 ${dy}C58 ${dy} 56 ${ay} 75.5 ${ay}"/>`; }));
+      agents.forEach((ay) => { s += `<path d="M84.5 ${ay}C104 ${ay} 106 ${R.y} ${R.x - 8.5} ${R.y}"/>`; });
+      s += `</g><path d="M36 42C58 42 56 55 75.5 55M84.5 55H123.5" fill="none" stroke="${AC}" stroke-width=".6"/>`;
+      const labels = ["PDF", "XML", "TXT", "PDF"];
+      docs.forEach((dy, i) => {
+        const x = 22, y = dy - 9;
+        s += `<g fill="${SF}" stroke="${FG}" stroke-width=".35"><path stroke-opacity=".7" d="M${x} ${y}h9l5 5v13h-14z"/><path fill="none" stroke-opacity=".7" d="M${x + 9} ${y}v5h5"/>
+          <path fill="none" stroke-opacity=".3" d="M${x + 3} ${y + 9}h8M${x + 3} ${y + 11.5}h8M${x + 3} ${y + 14}h5"/></g>`;
+        s += txt(17, dy + 1, 2.8, labels[i], { a: "end", ls: 0.5 });
+      });
+      const names = ["EXTRACT", "RETRIEVE", "VALIDATE"];
+      agents.forEach((ay, i) => {
+        s += `<circle cx="80" cy="${ay}" r="4.5" fill="${SF}" stroke="${FG}" stroke-opacity=".75" stroke-width=".35"/><circle cx="80" cy="${ay}" r="1.3" fill="${i === 1 ? AC : FG}"/>`;
+        s += txt(80, ay - 7, 2.5, names[i], { a: "middle", ls: 0.5 });
+      });
+      s += `<circle cx="${R.x}" cy="${R.y}" r="13" fill="none" stroke="${AC}" stroke-opacity=".45" stroke-width=".35" stroke-dasharray="1 1.6"/>
+        <circle cx="${R.x}" cy="${R.y}" r="8.5" fill="${SF}" stroke="${AC}" stroke-width=".6"/><circle cx="${R.x}" cy="${R.y}" r="3" fill="${AC}"/>`;
+      s += txt(R.x, R.y + 21, 2.8, "HUMAN REVIEW", { a: "middle", c: FG, ls: 0.6 });
+      s += txt(R.x, R.y + 25, 2.3, "AUDIT-READY OUTPUT", { a: "middle", ls: 0.5 });
+      return svgWrap(160, 110, "pat-ausra", s);
+    },
+    pathcup() {
+      const rows = ["RNA-SEQ", "METHYLATION", "COPY NUMBER", "MUTATION", "PROTEOMICS", "CLINICAL"];
+      const r = rng(11), T = { x: 136, y: 55 };
+      let s = "";
+      rows.forEach((name, i) => {
+        const y = 20 + i * 14;
+        s += txt(12, y + 1, 2.7, name, { ls: 0.45 });
+        s += `<path d="M42 ${y}H97" stroke="${FG}" stroke-opacity=".08" stroke-width=".25"/>`;
+        for (let x = 43; x <= 96; x += 1.75) {
+          const v = r(), h = 0.8 + v * 6.2, hot = v > 0.9;
+          s += `<path d="M${x.toFixed(2)} ${(y - h / 2).toFixed(2)}v${h.toFixed(2)}" stroke="${hot ? AC : FG}" stroke-opacity="${hot ? 0.95 : (0.18 + r() * 0.45).toFixed(2)}" stroke-width=".85"/>`;
+        }
+        s += `<path d="M99 ${y}C118 ${y} 116 ${T.y} ${T.x - 7.5} ${T.y}" fill="none" stroke="${i === 0 || i === 3 ? AC : FG}" stroke-opacity="${i === 0 || i === 3 ? 0.8 : 0.3}" stroke-width=".4"/>`;
+      });
+      s += `<circle cx="${T.x}" cy="${T.y}" r="12" fill="none" stroke="${AC}" stroke-opacity=".45" stroke-width=".35" stroke-dasharray="1 1.6"/>
+        <circle cx="${T.x}" cy="${T.y}" r="7.5" fill="${SF}" stroke="${AC}" stroke-width=".6"/><circle cx="${T.x}" cy="${T.y}" r="2.8" fill="${AC}"/>`;
+      s += txt(T.x, T.y + 20, 2.8, "TISSUE OF ORIGIN", { a: "middle", c: FG, ls: 0.6 });
+      s += txt(T.x, T.y + 24, 2.3, "+ UNCERTAINTY", { a: "middle", ls: 0.5 });
+      return svgWrap(160, 110, "pat-pathcup", s);
+    },
+    neosense() {
+      const x0 = 36, x1 = 136, y0 = 92, y1 = 18, W = x1 - x0, H = y0 - y1;
+      const pts = [[0, 0], [0.005, 0.5], [0.01, 0.68], [0.02, 0.8], [0.035, 0.88], [0.06, 0.93], [0.1, 0.96], [0.18, 0.98], [0.3, 0.99], [0.5, 0.997], [1, 1]];
+      const P = pts.map(([f, t]) => [x0 + f * W, y0 - t * H]);
+      let s = `<g stroke="${FG}" stroke-opacity=".08" stroke-width=".25" stroke-dasharray=".6 1.2">`;
+      for (let k = 1; k <= 4; k++) s += `<path d="M${x0 + k * W / 5} ${y1}V${y0}M${x0} ${y0 - k * H / 5}H${x1}"/>`;
+      s += `</g><path d="M${x0} ${y1}V${y0}H${x1}" fill="none" stroke="${FG}" stroke-opacity=".55" stroke-width=".35"/>`;
+      s += `<path d="M${x0} ${y0}L${x1} ${y1}" stroke="${MU}" stroke-opacity=".7" stroke-width=".3" stroke-dasharray="1.2 1.2"/>`;
+      const line = P.map((p, i) => (i ? "L" : "M") + p[0].toFixed(2) + " " + p[1].toFixed(2)).join("");
+      s += `<path d="${line}L${x1} ${y0}Z" fill="${AC}" fill-opacity=".09"/>`;
+      s += `<path d="${line}" fill="none" stroke="${AC}" stroke-width=".8" stroke-linejoin="round"/>`;
+      s += txt(x0 + W * 0.52, y0 - H * 0.42, 11, "AUC 0.98", { f: "Anton, sans-serif", c: FG, ls: 0 });
+      s += txt(x0 + W * 0.52, y0 - H * 0.42 + 6, 2.5, "ILLUSTRATIVE ROC", { ls: 0.5 });
+      s += txt((x0 + x1) / 2, y0 + 8, 2.5, "FALSE POSITIVE RATE", { a: "middle", ls: 0.5 });
+      s += txt(x0 - 7, (y0 + y1) / 2, 2.5, "TRUE POSITIVE RATE", { a: "middle", ls: 0.5, extra: `transform="rotate(-90 ${x0 - 7} ${(y0 + y1) / 2})"` });
+      s += txt(x0 - 2.5, y0 + 1, 2.4, "0", { a: "end" }) + txt(x0 - 2.5, y1 + 1, 2.4, "1", { a: "end" }) + txt(x1, y0 + 4, 2.4, "1", { a: "middle" });
+      return svgWrap(160, 110, "pat-neo", s);
+    },
+    clinic() {
+      const cx = 32, cw = 29, ry = 22, rh = 9.4, cols = 4, rows = 8;
+      let s = "";
+      for (let c = 0; c < cols; c++) s += txt(cx + c * cw + cw / 2, 16, 2.5, `CHAIR ${c + 1}`, { a: "middle", ls: 0.5 });
+      for (let r = 0; r < rows; r++) s += txt(cx - 3, ry + r * rh + 2.6, 2.4, `${String(9 + r).padStart(2, "0")}:00`, { a: "end", ls: 0.3 });
+      s += `<g stroke="${FG}" stroke-width=".25">`;
+      for (let r = 0; r <= rows; r++) s += `<path d="M${cx} ${ry + r * rh}H${cx + cols * cw}" stroke-opacity=".07"/>`;
+      for (let c = 0; c <= cols; c++) s += `<path d="M${cx + c * cw} ${ry}V${ry + rows * rh}" stroke-opacity=".12"/>`;
+      s += `</g><defs><pattern id="hatch" width="2" height="2" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V2" stroke="${FG}" stroke-opacity=".22" stroke-width=".5"/></pattern></defs>`;
+      const appts = [[0, 0, 2, "n"], [0, 3, 1, "n"], [0, 5, 2, "a"], [1, 1, 1, "n"], [1, 2, 2, "n"], [1, 6, 1, "b"], [2, 0, 1, "b"], [2, 2, 3, "n"], [2, 6, 2, "n"], [3, 1, 2, "n"], [3, 4, 1, "n"], [3, 5, 2, "n"]];
+      appts.forEach(([c, r, span, t]) => {
+        const x = cx + c * cw + 1.2, y = ry + r * rh + 1, w = cw - 2.4, h = span * rh - 2;
+        if (t === "a") s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx=".8" fill="${AC}"/><path d="M${x + 2.5} ${y + 3.5}h11M${x + 2.5} ${y + 6.5}h7" stroke="${SF}" stroke-opacity=".7" stroke-width=".8"/>`;
+        else if (t === "b") s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx=".8" fill="url(#hatch)" stroke="${FG}" stroke-opacity=".15" stroke-width=".25"/>`;
+        else s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx=".8" fill="${FG}" fill-opacity=".06" stroke="${FG}" stroke-opacity=".28" stroke-width=".3"/><path d="M${x + 2.5} ${y + 3.5}h${8 + ((c + r) % 3) * 3}" stroke="${FG}" stroke-opacity=".45" stroke-width=".8"/>`;
+      });
+      const ny = ry + 4.45 * rh;
+      s += `<path d="M${cx - 1} ${ny}H${cx + cols * cw}" stroke="${AC}" stroke-width=".45"/><circle cx="${cx - 1}" cy="${ny}" r="1.2" fill="${AC}"/>`;
+      return svgWrap(160, 110, "pat-clinic", s);
+    },
+    plate({ big, sub, cap }, i) {
+      let s = `<defs><pattern id="dots-${i}" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r=".35" fill="${FG}" fill-opacity=".14"/></pattern></defs>
+        <rect width="100" height="125" fill="${SF}"/><rect width="100" height="125" fill="url(#dots-${i})"/>`;
+      s += txt(8, 13, 3, `${String(i + 1).padStart(2, "0")} / 04`, { ls: 0.6 });
+      s += `<path d="M8 18H92" stroke="${FG}" stroke-opacity=".15" stroke-width=".3"/>`;
+      s += txt(6.5, 78, 34, big, { f: "Anton, sans-serif", c: AC, ls: -0.3 });
+      s += txt(8, 92, 9, sub, { f: "Anton, sans-serif", c: FG, ls: 0 });
+      s += `<path d="M8 104H92" stroke="${FG}" stroke-opacity=".15" stroke-width=".3"/>`;
+      s += txt(8, 112, 3, cap, { ls: 0.6 });
+      return `<svg viewBox="0 0 100 125" preserveAspectRatio="xMidYMid slice" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">${s}</svg>`;
+    },
+  };
+  document.querySelectorAll("[data-art]").forEach((el) => { el.innerHTML = ART[el.dataset.art](); });
+
+  /* ---------- LiquidImage ---------- */
+  let liqN = 0;
+  document.querySelectorAll(".liquid").forEach((fig) => {
+    const max = +fig.dataset.liquid || 28;
+    const media = fig.querySelector(".liquid__media");
+    const id = "liquid-" + ++liqN;
+    fig.insertAdjacentHTML("afterbegin",
+      `<svg class="liquid__svg" aria-hidden="true" focusable="false"><filter id="${id}" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="${liqN * 7}" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" xChannelSelector="R" yChannelSelector="G"/></filter></svg>`);
+    const turb = fig.querySelector("feTurbulence");
+    const disp = fig.querySelector("feDisplacementMap");
+    const s = spring(140, 13, (p) => {
+      disp.setAttribute("scale", (1 + p * (max - 1)).toFixed(2));
+      turb.setAttribute("baseFrequency", (0.009 + p * 0.013).toFixed(4));
+      media.style.filter = Math.abs(p) > 0.002 ? `url(#${id})` : "";
+    });
+    const host = fig.closest("[data-liquid-host]") || fig;
+    host.addEventListener("pointerenter", () => { if (!finePointer.matches) return; fig.classList.add("is-hover"); s.set(1); });
+    host.addEventListener("pointerleave", () => { fig.classList.remove("is-hover"); s.set(0); });
+  });
+  // Touch / narrow screens: no hover, so reveal colour as each image reaches mid-screen
+  const colorIO = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (finePointer.matches) continue;
+      e.target.classList.toggle("is-color", e.isIntersecting);
+    }
+  }, { rootMargin: "-30% 0px -30% 0px" });
+  document.querySelectorAll(".liquid:not(.liquid--bare)").forEach((el) => colorIO.observe(el));
+
+  /* ---------- Experience (interactive) ---------- */
+  const XP = [
+    { text: "Architected the inference engine and multi-agent orchestration for an agentic AI framework that automates regulatory and safety documentation in life sciences — with hybrid retrieval, an evaluation harness and a human-in-the-loop review layer.",
+      meta: "Co-founder — Aušra · Bengaluru", label: "Aušra, 2025 to present", plate: { big: "2025", sub: "– PRESENT", cap: "AUŠRA · BENGALURU" } },
+    { text: "Built supervised models predicting diabetes and heart-disease risk from patient clinical data, end to end — cleaning, missing-value handling, feature engineering, and model selection on cross-validated, held-out performance.",
+      meta: "AI/ML Intern — Technologics Global · Bengaluru", label: "Technologics Global, February to May 2026", plate: { big: "2026", sub: "FEB – MAY", cap: "TECHNOLOGICS GLOBAL" } },
+    { text: "Led content strategy and script development for Metamorphosis 2024 and Tessellate 2025, coordinated teams inside and beyond TEDxMVJCE, and refined talk scripts with every speaker on the red dot.",
+      meta: "Content Head — TEDxMVJCE · Bengaluru", label: "TEDxMVJCE, 2024 to 2025", plate: { big: "2024", sub: "– 2025", cap: "TEDxMVJCE · CONTENT" } },
+    { text: "Organised open houses and inter-club sessions, served as Contest Master across Areas E1–E4, and onboarded 11 members as AVP Membership; club retention rose 41%, per Toastmasters International.",
+      meta: "VP Education — Toastmasters MVJCE · Bengaluru", label: "Toastmasters MVJCE, 2023", plate: { big: "2023", sub: "JAN – DEC", cap: "TOASTMASTERS MVJCE" } },
+  ];
+  const xpBtns = [...document.querySelectorAll(".xp-btn")];
+  const xpText = document.querySelector("[data-xp-text]");
+  const xpMeta = document.querySelector("[data-xp-meta]");
+  const xpMedia = document.querySelector("[data-xp-media]");
+  const xpFig = xpMedia.closest(".liquid");
+  let xpActive = 0;
+  let quoteSeen = false;
+
+  function renderQuote(i) {
+    xpText.textContent = "";
+    XP[i].text.split(" ").forEach((w, k, a) => {
+      const s = document.createElement("span");
+      s.className = "qw";
+      s.textContent = w;
+      s.style.setProperty("--d", k * 22 + "ms");
+      xpText.append(s);
+      if (k < a.length - 1) xpText.append(" ");
+    });
+    xpText.classList.remove("play");
+  }
+  function playQuote() {
+    quoteSeen = true;
+    void xpText.offsetWidth;
+    requestAnimationFrame(() => xpText.classList.add("play"));
+  }
+  function setActive(i) {
+    if (i === xpActive) return;
+    xpActive = i;
+    xpBtns.forEach((b, k) => { b.classList.toggle("is-active", k === i); b.setAttribute("aria-pressed", k === i); });
+    renderQuote(i);
+    xpMeta.textContent = XP[i].meta;
+    xpMedia.innerHTML = ART.plate(XP[i].plate, i);
+    xpFig.setAttribute("aria-label", XP[i].label);
+    if (quoteSeen || !MOTION) playQuote();
+  }
+  xpBtns.forEach((b, i) => {
+    b.addEventListener("mouseenter", () => setActive(i));
+    b.addEventListener("focus", () => setActive(i));
+    b.addEventListener("click", () => setActive(i));
+  });
+  renderQuote(0);
+  xpMedia.innerHTML = ART.plate(XP[0].plate, 0);
+  if (!MOTION) playQuote();
+
+  /* ---------- Mobile menu + anchor scrolling ---------- */
+  const burger = document.querySelector(".burger");
+  const menu = document.querySelector(".menu");
+  let menuOpen = false;
+  function setMenu(open) {
+    if (open === menuOpen) return;
+    menuOpen = open;
+    burger.setAttribute("aria-expanded", open);
+    burger.setAttribute("aria-label", open ? "Close menu" : "Menu");
+    menu.classList.toggle("is-open", open);
+    menu.inert = !open;
+    open ? lock() : unlock();
+  }
+  burger.addEventListener("click", () => setMenu(!menuOpen));
+  addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  matchMedia("(min-width: 768px)").addEventListener("change", (e) => { if (e.matches) setMenu(false); });
+
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const hash = a.getAttribute("href");
+    const target = document.querySelector(hash);
+    if (!target) return;
+    e.preventDefault();
+    setMenu(false);
+    if (lenis) lenis.scrollTo(target === hero ? 0 : target);
+    else window.scrollTo({ top: target === hero ? 0 : target.getBoundingClientRect().top + scrollY, behavior: MOTION ? "smooth" : "auto" });
+    history.replaceState(null, "", hash === "#top" ? location.pathname : hash);
+  });
+
+  /* ---------- Writing: latest three posts ---------- */
+  const writing = document.querySelector("#writing");
+  import("./blog-data.js")
+    .then(({ loadPosts, postRowHTML }) => loadPosts().then((posts) => {
+      if (!posts.length) return;
+      const list = writing.querySelector("[data-posts]");
+      list.innerHTML = posts.slice(0, 3).map(postRowHTML).join("");
+      writing.hidden = false;
+      document.querySelectorAll("[data-writing-link]").forEach((el) => (el.hidden = false));
+      list.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
+      if (location.hash === "#writing") lenis ? lenis.scrollTo(writing, { immediate: true }) : writing.scrollIntoView();
+    }))
+    .catch(() => { /* no posts yet, or opened as a file: the section stays hidden */ });
+
+  const header = document.querySelector(".site-header");
+  const onScroll = () => header.classList.toggle("is-scrolled", window.scrollY > hero.offsetHeight - 120);
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  document.querySelector("[data-year]").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
